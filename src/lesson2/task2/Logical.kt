@@ -68,4 +68,5 @@ fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
     val km1 = min(a, min(b, c))
     val km2 = max(a,max(b, c))
     return if ((km1 <= min(r, s)) && ((a + b + c - km1 - km2) <= max(r, s))) true else false
+
 }
