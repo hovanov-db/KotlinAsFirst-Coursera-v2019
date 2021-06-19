@@ -2,6 +2,7 @@
 
 package lesson3.task1
 
+import lesson1.task1.sqr
 import kotlin.math.sqrt
 
 /**
@@ -69,13 +70,16 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  */
 fun digitNumber(n: Int): Int = TODO()
 
+
 /**
  * Простая
  *
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
-fun fib(n: Int): Int = TODO()
+fun fib(n: Int): Int {
+    return if (n <= 2) 1 else fib(n - 2) + fib(n - 1)
+}
 
 /**
  * Простая
@@ -133,7 +137,17 @@ fun squareBetweenExists(m: Int, n: Int): Boolean = TODO()
  * Написать функцию, которая находит, сколько шагов требуется для
  * этого для какого-либо начального X > 0.
  */
-fun collatzSteps(x: Int): Int = TODO()
+fun collatzSteps(x: Int): Int {
+    var count = 0
+    var tmp = x
+    while (tmp != 1) {
+        if (tmp % 2 == 0)
+            tmp = tmp / 2
+        else tmp = 3 * tmp + 1
+        count++
+    }
+    return count
+}
 
 /**
  * Средняя
@@ -196,7 +210,28 @@ fun hasDifferentDigits(n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun squareSequenceDigit(n: Int): Int = TODO()
+fun squareSequenceDigit(n: Int): Int {
+    var count = 1
+    if (n == 1) return count
+    var tmp = 1
+    var i = 1
+    do {
+        i++
+        tmp = sqr(i)
+        do {
+            count++
+            tmp /= 10
+        } while (tmp > 0)
+    } while (count < n)
+    i = sqr(i)
+    tmp = 0
+    while (count - n  + tmp != 0) {
+        i /= 10
+        tmp--
+    }
+    return i % 10
+}
+
 
 /**
  * Сложная
