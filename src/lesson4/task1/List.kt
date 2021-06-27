@@ -184,7 +184,7 @@ fun factorize(n: Int): List<Int> = TODO()
 fun factorizeToString(n: Int): String {
     var tmp: Int
     var i: Int
-    var list = mutableListOf<Int>()
+    val list = mutableListOf<Int>()
 
     tmp = n
     while (tmp != 1) {
@@ -256,8 +256,8 @@ fun roman(n: Int): String {
     val hand = listOf<String>("C", "CD", "D", "CM")
     val thousands = listOf<String>("M")
     val index = listOf<Int>(1, 4, 5, 9)
-    val rezult = mutableListOf<String>()
-    var digits = mutableListOf<Int>()
+    val rezult = mutableListOf<String>() //результат
+    val digits = mutableListOf<Int>()
     var i = 0
 
     fun st(ind: Int): List<String> = when {
