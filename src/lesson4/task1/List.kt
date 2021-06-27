@@ -181,7 +181,20 @@ fun factorize(n: Int): List<Int> = TODO()
  * Результат разложения вернуть в виде строки, например 75 -> 3*5*5
  * Множители в результирующей строке должны располагаться по возрастанию.
  */
-fun factorizeToString(n: Int): String = TODO()
+fun factorizeToString(n: Int): String {
+    var tmp: Int
+    var i: Int
+    var list = mutableListOf<Int>()
+
+    tmp = n
+    while (tmp != 1) {
+        i = 2
+        while (tmp % i != 0) { i++ }
+        list.add(i)
+        tmp = tmp / i
+    }
+    return list.sorted().joinToString(separator = "*")
+}
 
 /**
  * Средняя
@@ -236,7 +249,39 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * 90 = XC, 100 = C, 400 = CD, 500 = D, 900 = CM, 1000 = M.
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
-fun roman(n: Int): String = TODO()
+fun roman(n: Int): String {
+
+    val ed = listOf<String>("I", "IV", "V", "IX")
+    val dec = listOf<String>("X", "XL", "L", "XC")
+    val hand = listOf<String>("C", "CD", "D", "CM")
+    val thousands = listOf<String>("M")
+    val index = listOf<Int>(1, 4, 5, 9)
+    val rezult = mutableListOf<String>()
+    var digits = mutableListOf<Int>()
+    var i = 0
+
+    fun st(ind: Int): List<String> = when {
+        ind == 1 -> ed
+        ind == 2 -> dec
+        ind == 3 -> hand
+        else -> thousands
+    }
+
+    for (digit in n.toString()) (digits.add(digit.toString().toInt()))
+    for (ind in digits.size downTo 1) {
+        if (digits[digits.size - ind] == 0) continue
+        else if (digits[digits.size - ind] in index) rezult.add(st(ind)[index.indexOf(digits[digits.size - ind])])
+        else if (digits[digits.size - ind] < 5) rezult.add(st(ind)[0])
+        else rezult.add(st(ind)[2])
+        i = 0
+        while (digits[digits.size - ind] - i !in index) {
+            rezult.add(st(ind)[0])
+            i ++
+        }
+    }
+    return rezult.joinToString(separator = "", prefix = "")
+}
+
 
 /**
  * Очень сложная
