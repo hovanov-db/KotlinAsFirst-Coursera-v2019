@@ -239,7 +239,17 @@ fun hasAnagrams(words: List<String>): Boolean = TODO()
  *        )
  */
 fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<String>> = TODO()
-
+//{
+/*    val rez: Map<String, Set<String>> = mutableMapOf()
+    rezout: Map<String, Set<String>>
+    for ((name_one, set_name) in friends) {
+        for (second_name in set_name) {
+            if (second_name in friends == true) rez[name_one] = set_name.add(friends[second_name])
+        }
+    }
+    return rezout = mappOf(rez)
+}
+*/
 /**
  * Сложная
  *
@@ -257,8 +267,45 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
  *   findSumOfTwo(listOf(1, 2, 3), 4) -> Pair(0, 2)
  *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
  */
-fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> = TODO()
+fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
+    var lind: List<Int>
+    var sind = mutableSetOf<Int>()
 
+    if (list.size != 0) {
+        for (i in 0 until list.size) {
+            for (j in 0 until list.size) {
+                if ((i != j) and (i + j +2 == number)) {
+                    sind.add(i)
+                    sind.add(j)
+                }
+            }
+        }
+    }
+    lind = sind.toList().sorted()
+    if (lind.size != 0) return Pair(lind[0], lind[1]) else return Pair(-1, -1)
+}
+
+/**
+ * Очень сложная
+ *
+ * Входными данными является ассоциативный массив
+ * "название сокровища"-"пара (вес сокровища, цена сокровища)"
+ * и вместимость вашего рюкзака.
+ * Необходимо вернуть множество сокровищ с максимальной суммарной стоимостью,
+ * которые вы можете унести в рюкзаке.
+ *
+ * Перед решением этой задачи лучше прочитать статью Википедии "Динамическое программирование".
+ *
+ * Например:
+ *   bagPacking(
+ *     mapOf("Кубок" to (500 to 2000), "Слиток" to (1000 to 5000)),
+ *     850
+ *   ) -> setOf("Кубок")
+ *   bagPacking(
+ *     mapOf("Кубок" to (500 to 2000), "Слиток" to (1000 to 5000)),
+ *     450
+ *   ) -> emptySet()
+ */
 /**
  * Очень сложная
  *
