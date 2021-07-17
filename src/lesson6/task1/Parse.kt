@@ -2,6 +2,11 @@
 
 package lesson6.task1
 
+import lesson1.task1.numberRevert
+import kotlin.math.expm1
+import kotlin.reflect.typeOf
+
+
 /**
  * Пример
  *
@@ -69,7 +74,30 @@ fun main() {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30.02.2009) считается неверными
  * входными данными.
  */
-fun dateStrToDigit(str: String): String = TODO()
+fun dateStrToDigit(str: String): String {
+    var rez: String
+    var data = str.split(" ")
+    val day = data[0].toInt()
+    val year = data[2].toInt()
+    var mount = when (data[1]) {
+        "января" -> 1
+        "февраля" -> 2
+        "марта" -> 3
+        "апреля" -> 4
+        "марта" -> 5
+        "июня" -> 6
+        "июля" -> 7
+        "августа" -> 8
+        "сентября" -> 9
+        "октября" -> 10
+        "ноября" -> 11
+        "декабрь" -> 12
+        else -> null
+    }
+    if (((day > 31) and ((mount == 1) or (mount == 3) or (mount == 5) or (mount == 7) or (mount == 8) or (mount == 10) or (mount == 12))) or ((day > 30) and (((mount == 4) or (mount == 6) or (mount == 9) or (mount == 11)))) or ((day > 29) and ((mount == 2))) or (day == null) or (mount == null) or (year == null))
+        return ""
+    else return (String.format("%02d.%02d.%04d", day, mount, year))
+}
 
 /**
  * Средняя
@@ -122,7 +150,28 @@ fun bestLongJump(jumps: String): Int = TODO()
  * При нарушении формата входной строки, а также в случае отсутствия удачных попыток,
  * вернуть -1.
  */
-fun bestHighJump(jumps: String): Int = TODO()
+fun bestHighJump(jumps: String): Int {
+    val jumpsList = jumps.split(" ")
+    var w = mutableListOf<Int>()
+    var p = mutableListOf<Boolean>()
+    var ind: Int = 0
+    try {
+        for (ind in 0..jumpsList.size - 1 step 2) {
+            if (jumpsList[ind].toInt() is Int) {
+                if (jumpsList[ind + 1] is String) {
+                    for (i in jumpsList[ind + 1]) {
+                        if (i !in "%+-") return -1
+                        if (i == '+') w.add(jumpsList[ind].toInt())
+                    }
+
+                } else return -1
+            }
+        }
+        return w?.max() ?: -1
+    } catch (e: java.lang.NumberFormatException) {
+        return -1
+    }
+}
 
 /**
  * Сложная
@@ -133,7 +182,28 @@ fun bestHighJump(jumps: String): Int = TODO()
  * Вернуть значение выражения (6 для примера).
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
-fun plusMinus(expression: String): Int = TODO()
+fun plusMinus(expression: String): Int {
+    val l = expression.split(" ")
+    print(l)
+    var add: Boolean = true
+    var rez: Int = 0
+    var flag: Int = 0
+    for (elem in l) {
+        if (flag == 0) {
+            if (elem.toInt() !is Int) throw IllegalArgumentException(" ")
+            if (add) rez += elem.toInt() else rez -= elem.toInt()
+            flag++
+        } else if (flag == 1) {
+            when (elem) {
+                "+" -> add = true
+                "-" -> add = false
+                else -> throw IllegalArgumentException()
+            }
+            flag--
+        }
+    }
+return rez
+}
 
 /**
  * Сложная
