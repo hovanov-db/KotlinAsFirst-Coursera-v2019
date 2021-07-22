@@ -91,7 +91,21 @@ fun sibilants(inputName: String, outputName: String) {
  *
  */
 fun centerFile(inputName: String, outputName: String) {
-    TODO()
+    var max = 0
+    for (line in File(inputName).readLines())
+        if (line.trim().length > max)
+            max = line.trim().length
+    val out = File(outputName).bufferedWriter()
+    for (line in File(inputName).readLines()) {
+        var temp = (max - line.trim().length) / 2
+        while (temp > 0) {
+            out.write(" ")
+            temp--
+        }
+        out.write(line.trim())
+        out.newLine()
+    }
+    out.close()
 }
 
 /**
@@ -143,7 +157,7 @@ fun alignFileByWidth(inputName: String, outputName: String) {
  * Ключи в ассоциативном массиве должны быть в нижнем регистре.
  *
  */
-fun top20Words(inputName: String): Map<String, Int> = TODO()
+    fun top20Words(inputName: String): Map<String, Int> = TODO()
 
 /**
  * Средняя
@@ -209,7 +223,22 @@ fun transliterate(inputName: String, dictionary: Map<Char, String>, outputName: 
  * Обратите внимание: данная функция не имеет возвращаемого значения
  */
 fun chooseLongestChaoticWord(inputName: String, outputName: String) {
-    TODO()
+    val m = StringBuilder()
+    var max = 0
+    for (line in File(inputName).readLines()) {
+        val l = mutableSetOf<Char>()
+        for (i in line) {
+            l.add(i.toLowerCase())
+            if (l.size == line.length && line.length > max) {
+                m.clear().append(line)
+                max = line.length
+            } else if (l.size == line.length && line.length == max)
+                m.append(", $line")
+        }
+    }
+    val output = File(outputName).bufferedWriter()
+    output.write(m.toString())
+    output.close()
 }
 
 /**
